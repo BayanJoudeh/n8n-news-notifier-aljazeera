@@ -10,7 +10,8 @@ The workflow performs the following steps:
 2.  **Reads Aljazeera RSS Feed:** Fetches the latest items from the Aljazeera English main RSS feed URL.
 3.  **Sends Email Notification:** For each new item found, it formats and sends an email containing the title, link, and content snippet.
 
-![Workflow Screenshot](Aljazeera%20Feed%20Monitor%20Workflow.png)
+![Workflow Screenshot]![Aljazeera Feed Monitor Workflow](https://github.com/user-attachments/assets/dc1b1c52-5f86-40c1-aca8-94e04654a69a)
+
 
 *(Image: Aljazeera Feed Monitor Workflow.png shows the visual layout of the n8n workflow)*
 
