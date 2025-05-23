@@ -1,0 +1,118 @@
+{
+  "name": "Aljazeera Feed Monitor",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "{{ $parameter.webhookPath || \"YOUR_WEBHOOK_PATH\" }}",
+        "options": {}
+      },
+      "name": "Webhook Trigger (Configure)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -1300,
+        940
+      ],
+      "id": "6ad0f610-a622-4dd1-95c3-3b1f55d5ff51",
+      "webhookId": "c7a23f55-b12d-4fb4-bc24-15cf563a9271"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 17,
+              "triggerAtMinute": null
+            }
+          ]
+        }
+      },
+      "name": "Schedule Trigger (Configure Time)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        -700,
+        500
+      ],
+      "id": "e596a783-030c-4217-9a19-47f1d9fe8cba"
+    },
+    {
+      "parameters": {
+        "url": "https://www.aljazeera.com/xml/rss/all.xml",
+        "options": {}
+      },
+      "name": "RSS Feed Read (Configure URL)",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [
+        -500,
+        500
+      ],
+      "id": "31bf65f3-25ea-4043-af65-d64a37bb9adb"
+    },
+    {
+      "parameters": {
+        "fromEmail": "bayanjoudeh11@gmail.com",
+        "toEmail": "joudehbayan00@gmail.com",
+        "subject": "=New Post: {{$json.title}}",
+        "text": "=A new post titled \"{{$json.title}}\" was published.\nLink: {{$json.link}}\nSummary: {{$json.contentSnippet}}\n\n",
+        "options": {}
+      },
+      "name": "Send Email (Configure Credentials & Recipient)",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        -300,
+        500
+      ],
+      "id": "228da870-9f0a-4498-b4ff-d6a034c2d29d",
+      "credentials": {
+        "smtp": {
+          "id": "mU2k2WnNGXT4pBti",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook Trigger (Configure)": {
+      "main": [
+        []
+      ]
+    },
+    "Schedule Trigger (Configure Time)": {
+      "main": [
+        [
+          {
+            "node": "RSS Feed Read (Configure URL)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Feed Read (Configure URL)": {
+      "main": [
+        [
+          {
+            "node": "Send Email (Configure Credentials & Recipient)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e7bb87c5-3fda-496b-b853-8a950eb911de",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e3dfc1280a79831d4234af7e6cc08f9877ebfb9b654891eea42f918f0063ec33"
+  },
+  "id": "SQcVyWjH3iT2pCWV",
+  "tags": []
+}
